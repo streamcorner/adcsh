@@ -1,0 +1,29 @@
+name: Update Adcash Library
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-library:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Fetch Adcash library
+        run: |
+          curl -f -o adcsh.js "https://adbpage.com/adblock?v=3&format=js"
+          
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add adcsh.js
+          git diff --staged --quiet || git commit -m "Update Adcash library"
+          git push
