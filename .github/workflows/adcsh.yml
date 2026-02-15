@@ -18,7 +18,7 @@ jobs:
       
       - name: Fetch Adcash library
         run: |
-          curl -f -o adcsh.js "https://adbpage.com/adblock?v=3&format=js"
+          curl -H "User-Agent: Mozilla/5.0" -f -o adcsh.js "https://adbpage.com/adblock?v=3&format=js"
           
       - name: Commit and push
         run: |
